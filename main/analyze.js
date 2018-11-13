@@ -18,7 +18,7 @@ function findImg(dom,type,imgDir,callback) {
 	analyzeTuYa(dom,imgDir,callback)
   }else if(type=='设计癖'){
 	analyzeSheJiPi(dom,imgDir,callback)
-  }else if(type=='视觉me'){
+  }else if(type=='视觉ME'){
 	analyzeSheShiJueMi(dom,imgDir,callback)
   }else {
 	analyzeOther(dom,imgDir,callback)
