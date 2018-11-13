@@ -1,0 +1,68 @@
+html body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+.logo{
+    margin-top: 50px;
+}
+.logo-img{
+    width: 150px;
+    height: 150px;
+    border-radius: 150px;
+}
+.title{
+    margin-top: 20px;
+    color: #ffffff;
+}
+.model{
+
+}
+.main{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: url("../img/bg5.jpg");
+    background-size:cover;
+    overflow: hidden;
+}
+.main:after{
+    position:absolute;
+    left: 0;
+    top:0;
+    display: block;
+    width:100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    content: attr(data-text);
+    transition:all 1s ease;
+    color: #FFF;
+}
+.down-main{
+    margin-top: 20px;
+}
+.download-img{
+    width: 100px;
+}
+.footer{
+    position: absolute; /*相对于父元素contanier定位*/
+    width: 100%;
+    bottom: 0;/*始终距离它的父元素的底部为0px.则是处于父元素的最底*/
+}
+.loading i{
+    font-size: 25px;
+    color: #ffffff;
+}
+.link{
+    color: #ffffff;
+}
+.link-list li a{
+    color: #ffffff;
+}
+#cnzz_stat_icon_1275350536 a{
+    color: #ffffff;
+}
+.contact{
+    color: #ff9205;
+}
