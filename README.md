@@ -28,7 +28,7 @@
 ## 后续功能
 添加支持更多的网站
 ## 界面
-![](http://image.bloggeng.com/tufu.png)
+![](http://image.bloggeng.com/tutu.png)
 ## 贡献
 如果你觉得不足的地方，欢迎来提交PR
 ## 声明
