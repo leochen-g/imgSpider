@@ -7,11 +7,11 @@ const compressing = require('compressing');
  * @param response
  */
 function toTar(dir,response) {
-  compressing.tar.compressDir(path.join(path.resolve(__dirname, '..')+'/img/'+dir), path.join(path.resolve(__dirname, '..')+'/zip/'+dir+'.tar'))
+  compressing.tar.compressDir(path.join(path.resolve(__dirname, '..')+'/output/img/'+dir), path.join(path.resolve(__dirname, '..')+'/output/zip/'+dir+'.tar'))
 	  .then((res)=>{
 	    console.log(res);
 	    console.log('success');
-	    response.download(path.join(path.resolve(__dirname, '..')+'/zip/'+dir+'.tar'))
+	    response.download(path.join(path.resolve(__dirname, '..')+'/output/zip/'+dir+'.tar'))
 	  })
 	  .catch((error)=>{
 	    console.log(error);

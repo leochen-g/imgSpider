@@ -30,7 +30,7 @@ function write(path) {
  */
 function start(req,response,next) {
   const hash = uuid.v1().replace(/-/g, "")
-  const imgDir = path.join(path.resolve(__dirname, '..'), 'img/'+hash);
+  const imgDir = path.join(path.resolve(__dirname, '..'), 'output/img/'+hash);
   write(imgDir)
   // 发起请求获取 DOM
   request(req.url, function(err, res, body) {
