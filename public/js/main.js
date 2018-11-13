@@ -17,7 +17,7 @@ $(function () {
 	$('.loading').show()
 	$.ajax({
 	  type:'POST',
-	  url:'http://localhost:5000/api/getImg',
+	  url:'https://tufu.xkboke.com/api/getImg',
 	  dataType : "json",
 	  data:{
 		url:url,
@@ -35,7 +35,7 @@ $(function () {
 	})
   })
   $('#download').click(function () {
-    window.location.href = 'http://localhost:5000/api/download?path='+fileName
+    window.location.href = 'https://tufu.xkboke.com/api/download?path='+fileName
   })
   function IsURL (str_url) {
 	var strRegex = '[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+/.?';
