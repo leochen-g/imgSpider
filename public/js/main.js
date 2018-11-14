@@ -11,7 +11,7 @@ $(function () {
     var url = $('.form-control').val()
 	var type = $('.btn-default').text().replace(/\s+/g, "");
 	if(!IsURL(url)){
-	  alert('您好，射鸡师，请输入正确的域名')
+	  alert('您好，射鸡师，请输入正确的链接')
 	  return
 	}
 	$('.loading').show()

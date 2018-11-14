@@ -4,26 +4,39 @@ html body{
     width: 100%;
     height: 100%;
 }
+@media (max-width: 768px) {
+    .logo{
+        margin-top: 10px!important;
+    }
+    .logo-img{
+        width: 80px!important;
+        height: 80px!important;
+        border-radius: 80px!important;
+    }
+}
 .logo{
     margin-top: 50px;
 }
 .logo-img{
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     border-radius: 150px;
+}
+
+.header{
+    position: absolute; /*相对于父元素contanier定位*/
+    width: 100%;
+    top: 0;/*始终距离它的父元素的底部为0px.则是处于父元素的最底*/
 }
 .title{
     margin-top: 20px;
     color: #ffffff;
 }
-.model{
-
-}
 .main{
     width: 100%;
     height: 100%;
     position: absolute;
-    background-image: url("../img/bg.jpg");
+    background-image: url("http://image.bloggeng.com/bg.jpg");
     background-size:cover;
     overflow: hidden;
 }
@@ -56,13 +69,45 @@ html body{
 }
 .link{
     color: #ffffff;
+    display: inline-block;
+}
+.link-list li{
+    color: #ffffff;
 }
 .link-list li a{
     color: #ffffff;
+}
+.link-list li a:hover{
+    color: #ff9205;
 }
 #cnzz_stat_icon_1275350536 a{
     color: #ffffff;
 }
 .contact{
     color: #ff9205;
+}
+.other-tool{
+    color: #ffffff;
+}
+.other-tool a{
+    color: #ffffff;
+}
+.other-tool a:hover{
+    color: #ff9205;
+}
+.alumni{
+    width: 80px;
+    height: 80px;
+    border-radius: 80px;
+    margin-bottom: 20px;
+}
+.alumni-main{
+    padding-top: 20px;
+}
+.alumni-main p{
+    font-size: 12px;
+    color: #aaaaaa;
+}
+.copyright a{
+    color: #ffffff;
 }
