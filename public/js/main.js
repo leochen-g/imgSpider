@@ -14,6 +14,19 @@ $(function () {
 	  alert('您好，射鸡师，请输入正确的链接')
 	  return
 	}
+	if(url.indexOf('ui.com')>-1){
+	  type='UI中国'
+	}else if(url.indexOf('shijue.me')>-1){
+	  type='视觉ME'
+	}else if(url.indexOf('shejipi.com')>-1){
+	  type='设计癖'
+	}else if(url.indexOf('gracg.com')>-1){
+	  type= '涂鸦王国'
+	}else if(url.indexOf('zcool.com.cn')>-1){
+	  type='站酷'
+	}else {
+	  type='其他'
+	}
 	$('.loading').show()
 	$.ajax({
 	  type:'POST',

@@ -82,7 +82,7 @@ function analyzeUi(dom,imgDir,callback) {
 }
 
 /**
- * 解析涂鸦中国
+ * 解析涂鸦王国
  * @param dom
  * @param imgDir
  * @param callback
@@ -91,7 +91,7 @@ function analyzeTuYa(dom,imgDir,callback) {
   let $ = cheerio.load(dom);
   $('.workPage-images img').each(function(i, elem) {
 	let imgSrc = $(this).attr('src');
-	console.log(imgSrc);
+	console.log('计数',imgSrc);
 	if(imgSrc){
 	  if(imgSrc.indexOf('http')>-1||imgSrc.indexOf('https')>-1){
 		callback(imgSrc, i,imgDir);
