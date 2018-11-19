@@ -20,6 +20,8 @@ function findImg(dom,type,imgDir,callback) {
 	analyzeSheJiPi(dom,imgDir,callback)
   }else if(type=='视觉ME'){
 	analyzeSheShiJueMi(dom,imgDir,callback)
+  }else if(type=='百度贴吧'){
+	analyzeBaiDuTieBa(dom,imgDir,callback)
   }else {
 	analyzeOther(dom,imgDir,callback)
   }
@@ -35,7 +37,6 @@ function analyzeOther(dom,imgDir,callback) {
   let $ = cheerio.load(dom);
   $('body img').each(function(i, elem) {
 	let imgSrc = $(this).attr('src');
-	console.log(imgSrc);
 	if(imgSrc){
 	  if(imgSrc.indexOf('http')>-1||imgSrc.indexOf('https')>-1){
 		callback(imgSrc, i,imgDir);
@@ -53,7 +54,6 @@ function analyzeZhan(dom,imgDir,callback) {
   let $ = cheerio.load(dom);
   $('#lightbox-img-wrap img').each(function(i, elem) {
 	let imgSrc = $(this).attr('data-src');
-	console.log(imgSrc);
 	if(imgSrc){
 	  if(imgSrc.indexOf('http')>-1||imgSrc.indexOf('https')>-1){
 		callback(imgSrc, i,imgDir);
@@ -72,7 +72,6 @@ function analyzeUi(dom,imgDir,callback) {
   let $ = cheerio.load(dom);
   $('.works-cont img').each(function(i, elem) {
 	let imgSrc = $(this).attr('src').split('?')[0];
-	console.log(imgSrc);
 	if(imgSrc){
 	  if(imgSrc.indexOf('http')>-1||imgSrc.indexOf('https')>-1){
 		callback(imgSrc, i,imgDir);
@@ -91,7 +90,6 @@ function analyzeTuYa(dom,imgDir,callback) {
   let $ = cheerio.load(dom);
   $('.workPage-images img').each(function(i, elem) {
 	let imgSrc = $(this).attr('src');
-	console.log('计数',imgSrc);
 	if(imgSrc){
 	  if(imgSrc.indexOf('http')>-1||imgSrc.indexOf('https')>-1){
 		callback(imgSrc, i,imgDir);
@@ -109,7 +107,6 @@ function analyzeSheJiPi(dom,imgDir,callback) {
   let $ = cheerio.load(dom);
   $('.entry-content img').each(function(i, elem) {
 	let imgSrc = $(this).attr('src');
-	console.log(imgSrc);
 	if(imgSrc){
 	  if(imgSrc.indexOf('http')>-1||imgSrc.indexOf('https')>-1){
 		callback(imgSrc, i,imgDir);
@@ -128,9 +125,27 @@ function analyzeSheShiJueMi(dom,imgDir,callback) {
   let $ = cheerio.load(dom);
   $('.content img').each(function(i, elem) {
 	let imgSrc = $(this).attr('src');
-	console.log(imgSrc);
 	if(imgSrc){
 	  if(imgSrc.indexOf('http')>-1||imgSrc.indexOf('https')>-1){
+		callback(imgSrc, i,imgDir);
+	  }
+	}
+  });
+}
+
+/**
+ * 解析百度贴吧图片
+ * @param dom
+ * @param imgDir
+ * @param callback
+ */
+function analyzeBaiDuTieBa(dom,imgDir,callback) {
+  let $ = cheerio.load(dom);
+  $('.left_section .p_content .BDE_Image').each(function(i, elem) {
+	let imgSrc = $(this).attr('src');
+	if(imgSrc){
+	  if(imgSrc.indexOf('http')>-1||imgSrc.indexOf('https')>-1){
+	    imgSrc = 'http://imgsrc.baidu.com/forum/pic/item/'+imgSrc.split('/').pop()
 		callback(imgSrc, i,imgDir);
 	  }
 	}

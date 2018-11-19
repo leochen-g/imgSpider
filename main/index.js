@@ -33,6 +33,7 @@ function start(req,response,next) {
   const imgDir = path.join(path.resolve(__dirname, '..'), 'output/img/'+hash);
   write(imgDir)
   // 发起请求获取 DOM
+  console.log('请求地址',req.url);
   request(req.url, function(err, res, body) {
 	if (!err && res) {
 	  console.log('start');
@@ -54,6 +55,7 @@ function start(req,response,next) {
  * @param {*} imgDir
  */
 function downLoad(imgUrl, i,imgDir) {
+  console.log('图片地址',imgUrl);
   let ext = imgUrl.split('.').pop();
   // 再次发起请求，写文件
   request(imgUrl).pipe(fs.createWriteStream(path.join(imgDir, i + '.' + ext), {

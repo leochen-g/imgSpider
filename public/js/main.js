@@ -10,10 +10,10 @@ $(function () {
   $('.searchBtn').click(function () {
     var url = $('.form-control').val()
 	var type = $('.btn-default').text().replace(/\s+/g, "");
-	if(!IsURL(url)){
-	  alert('您好，射鸡师，请输入正确的链接')
-	  return
-	}
+	// if(!IsURL(url)){
+	//   alert('您好，射鸡师，请输入正确的链接')
+	//   return
+	// }
 	if(url.indexOf('ui.com')>-1){
 	  type='UI中国'
 	}else if(url.indexOf('shijue.me')>-1){
@@ -24,9 +24,12 @@ $(function () {
 	  type= '涂鸦王国'
 	}else if(url.indexOf('zcool.com.cn')>-1){
 	  type='站酷'
+	}else if(url.indexOf('tieba.baidu.com')>-1){
+	  type='百度贴吧'
 	}else {
 	  type='其他'
 	}
+	$('#download').hide()
 	$('.loading').show()
 	$.ajax({
 	  type:'POST',
@@ -51,7 +54,16 @@ $(function () {
     window.location.href = 'https://tufu.xkboke.com/api/download?path='+fileName
   })
   function IsURL (str_url) {
-	var strRegex = '[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+/.?';
+	var strRegex = "^((https|http|ftp|rtsp|mms)?://)"
+		+ "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" //ftp的user@
+		+ "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184
+		+ "|" // 允许IP和DOMAIN（域名）
+		+ "([0-9a-z_!~*'()-]+\.)*" // 域名- www.
+		+ "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名
+		+ "[a-z]{2,6})" // first level domain- .com or .museum
+		+ "(:[0-9]{1,4})?" // 端口- :80
+		+ "((/?)|" // 如果没有文件名，则不需要斜杠
+		+ "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
 	var re=new RegExp(strRegex);
 	if (re.test(str_url)) {
 	  return (true);

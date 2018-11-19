@@ -9,13 +9,12 @@ const compressing = require('compressing');
 function toTar(dir,response) {
   compressing.tar.compressDir(path.join(path.resolve(__dirname, '..')+'/output/img/'+dir), path.join(path.resolve(__dirname, '..')+'/output/zip/'+dir+'.tar'))
 	  .then((res)=>{
-	    console.log(res);
-	    console.log('success');
+	    console.log('success to create tar');
 	    response.download(path.join(path.resolve(__dirname, '..')+'/output/zip/'+dir+'.tar'))
 	  })
 	  .catch((error)=>{
 	    console.log(error);
-	    console.log('failed');
+	    console.log('failed to create tar');
 	  });
 }
 module.exports.tarTool = toTar;
