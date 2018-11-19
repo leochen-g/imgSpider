@@ -38,7 +38,7 @@ function start(req,response,next) {
 	if (!err && res) {
 	  console.log('start');
 	  // 将 downLoad 函数作为参数传递给 analyze 模块的 findImg 方法
-	  analyze.findImg(body,req.type,imgDir,downLoad);
+	  analyze.findImg(body,req.type,imgDir,downLoad,req.url);
 	  response.json({head: {code: 0, msg: 'ok'}, data: hash})
 	}else {
 	  response.json({head: {code: 1000, msg: err}, data: ''})
