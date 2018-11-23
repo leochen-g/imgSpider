@@ -111,3 +111,10 @@ html body{
 .copyright a{
     color: #ffffff;
 }
+.declaration{
+    width: 1000px;
+    margin: 0 auto;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+}
