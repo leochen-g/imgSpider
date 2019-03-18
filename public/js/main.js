@@ -10,10 +10,10 @@ $(function () {
   $('.searchBtn').click(function () {
     var url = $('.form-control').val()
 	var type = $('.btn-default').text().replace(/\s+/g, "");
-	// if(!IsURL(url)){
-	//   alert('您好，射鸡师，请输入正确的链接')
-	//   return
-	// }
+	if(!IsURL(url)){
+	  alert('您好，射鸡师，请输入正确的链接')
+	  return
+	}
 	if(url.indexOf('ui.com')>-1){
 	  type='UI中国'
 	}else if(url.indexOf('shijue.me')>-1){
@@ -31,6 +31,7 @@ $(function () {
 	}
 	$('#download').hide()
 	$('.loading').show()
+	$('.searchBtn').hide()
 	$.ajax({
 	  type:'POST',
 	  url:'https://tufu.xkboke.com/api/getImg',
@@ -43,9 +44,11 @@ $(function () {
 	    $('.loading').hide()
 		if(res.head.code==0){
 		  $('#download').show()
+		  $('.searchBtn').show()
 		  fileName = res.data
 		}else {
 		  $('#download').hide()
+		  $('.searchBtn').show()
 		}
 	  }
 	})
