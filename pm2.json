@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "tufu",
+      "name": "tufu2.0",
       "cwd": "./",
       "script": "./app.js",
       "log_date_format": "YYYY-MM-DD HH:mm Z",
