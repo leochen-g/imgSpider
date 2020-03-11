@@ -19,5 +19,11 @@
     "request": "^2.88.0",
     "tar": "^4.4.8",
     "url-parse": "^1.4.4"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "file-saver": "^2.0.2",
+    "jszip": "^3.2.2",
+    "koa-send": "^5.0.0"
   }
 }

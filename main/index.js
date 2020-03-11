@@ -1,78 +1,81 @@
 const request = require('request');
-const path = require('path');
-const fs = require('fs');
 const analyze = require('./analyze');
-const tarTool = require('./tarTool')
-const uuid =require('node-uuid')
-/**
- * 根据hash值创建文件夹
- * @param path
- */
-function write(path) {
-  fs.exists(path, function (exists) {  //path为文件夹路径
-	if (!exists) {
-	  fs.mkdir(path, function (err) {
-		if (err) {
-		  console.log('创建失败');
-		  return false;
-		} else {
-		  console.log('创建成功');
-		}
-	  })
-	}
-  })
-}
+const JSZip = require('jszip')
+const axios = require('axios')
+
 /**
  * 请求图片地址
  * @param response
  * @param req
  * @param next
  */
-function start(req,response,next) {
-  const hash = uuid.v1().replace(/-/g, "")
-  const imgDir = path.join(path.resolve(__dirname, '..'), 'output/img/'+hash);
-  write(imgDir)
-  // 发起请求获取 DOM
-  console.log('请求地址',req.url);
-  request(req.url, function(err, res, body) {
-	if (!err && res) {
-	  console.log('start');
-	  // 将 downLoad 函数作为参数传递给 analyze 模块的 findImg 方法
-	  analyze.findImg(body,req.type,imgDir,downLoad,req.url);
-	  response.json({head: {code: 0, msg: 'ok'}, data: hash})
-	}else {
-	  response.json({head: {code: 1000, msg: err}, data: ''})
-	}
-  });
+async function start(req, response, next) {
+    // 发起请求获取 DOM
+    console.log('请求地址', req.url);
+    try {
+        request(req.url, async function (err, res, body) {
+            if (!err && res) {
+                console.log('start');
+                // 将 downLoad 函数作为参数传递给 analyze 模块的 findImg 方法
+                let res = analyze.findImg(body, req.type, req.url);
+                let file = await handleBatchDownload(res)
+                response.set('Content-disposition', 'attachment;filename=' + 'photo.zip')
+                response.end(file)
+            } else {
+                response.json({head: {code: 1000, msg: err}, data: ''})
+            }
+        });
+    } catch (e) {
+        console.log('error', e)
+    }
 }
 
+getFile = (url) => {
+    let src = encodeURI(url)
+    return new Promise((resolve, reject) => {
+        axios({
+            method: 'get',
+            url: src,
+            responseType: 'arraybuffer'
+        }).then(data => {
+            resolve(data.data)
+        }).catch(error => {
+            console.log('t热天他拖拖', error)
+            reject(error.toString())
+        })
+    })
+}
+// 批量下载
+handleBatchDownload = async (selectImgList) => {
+    const data = selectImgList;
+    const zip = new JSZip()
+    const cache = {}
+    const promises = []
+    await data.forEach((item, index) => {
+        console.log('img', item)
+        const promise = getFile(item).then(data => { // 下载文件, 并存成ArrayBuffer对象
+            const arr_name = item.split("/");
+            let file_name = index + '-' + arr_name[arr_name.length - 1] // 获取文件名
+            // if (file_name.indexOf('.png') == -1) {
+            //    file_name = file_name + '.png'
+            // }
+            zip.file(file_name, data, {
+                binary: true
+            }) // 逐个添加文件
+            cache[file_name] = data
+        })
+        promises.push(promise)
+    })
+    await Promise.all(promises)
+    return await zip.generateAsync({
+        type: "nodebuffer",
+        compression: "DEFLATE",
+        compressionOptions: {
+            level: 9
+        }
+    })
 
-/**
- * 获取到 findImg 函数返回的图片地址后，利用 request 再次发起请求，将数据写入本地。
- *
- * @param {*} imgUrl
- * @param {*} i
- * @param {*} imgDir
- */
-function downLoad(imgUrl, i,imgDir) {
-  console.log('图片地址',imgUrl);
-  let ext = imgUrl.split('.').pop();
-  // 再次发起请求，写文件
-  request(imgUrl).pipe(fs.createWriteStream(path.join(imgDir, i + '.' + ext), {
-	'encoding': 'utf8',
-  }));
-}
-/**
- * 下载图片到本地后，利用tar压缩成一个压缩包，并返回路径
- * @param {*} req
- * @param {*} response
- * @param {*} next
- */
-function tarFile(req,response,next) {
-  console.log('接收',req);
-  tarTool.tarTool(req.path,response)
-}
-module.exports= {
-  getImg:start,
-  tarTool:tarFile
+};
+module.exports = {
+    getImg: start,
 }
